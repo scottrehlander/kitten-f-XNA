@@ -112,6 +112,9 @@
     <Compile Include="Entities\NonmovableEntities\Rock.cs" />
     <Compile Include="Entities\NonmovableEntities\Tree.cs" />
     <Compile Include="EvolutionManager.cs" />
+    <Compile Include="HudManager.cs" />
+    <Compile Include="InputManager.cs" />
+    <Compile Include="InputTypes\KeyboardInputManager.cs" />
     <Compile Include="ManagerTemplate.cs" />
     <Compile Include="Entities\MovableEntities\Hero.cs" />
     <Compile Include="Entities\Entity.cs" />

@@ -10,6 +10,7 @@ namespace LD48
 {
     public class StaticScreenManager
     {
+
         public enum CurrentScreenEnum
         {
             None,
@@ -24,6 +25,10 @@ namespace LD48
 
 
         public StaticScreenManager()
+        {
+        }
+
+        public void LoadContent()
         {
             _mainFont = SharedContext.Content.Load<SpriteFont>("startScreenFont");
         }

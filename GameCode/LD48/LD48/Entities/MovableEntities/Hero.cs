@@ -110,9 +110,7 @@ namespace LD48
 
         public override void Update(GameTime gameTime)
         {
-            // Grab the state of the keyboard
-            KeyboardState kb = Keyboard.GetState();
-            Keys[] keysDown = kb.GetPressedKeys();
+
 
             // Remember some states as we check the keys that were pressed
             bool isSwording = false;
@@ -122,7 +120,7 @@ namespace LD48
             {
 
                 // Check the state of the keyboard and manipulate the hero position and the 
-                if (keysDown.Contains(Keys.A) || keysDown.Contains(Keys.Left))
+                if (SharedContext.InputManager.MoveLeftPressed)
                 {
                     if (WorldPosition.X - _moveSpeed > -1525)
                     {
@@ -135,7 +133,7 @@ namespace LD48
                         isWalking = true;
                     }
                 }
-                if (keysDown.Contains(Keys.D) || keysDown.Contains(Keys.Right))
+                if (SharedContext.InputManager.MoveRightPressed)
                 {
                     if (WorldPosition.X + _moveSpeed < 1650 - 35)
                     {
@@ -148,7 +146,7 @@ namespace LD48
                         isWalking = true;
                     }
                 }
-                if (keysDown.Contains(Keys.W) || keysDown.Contains(Keys.Up))
+                if (SharedContext.InputManager.MoveUpPressed)
                 {
                     if (WorldPosition.Y - _moveSpeed > -1500 - 10)
                     {
@@ -159,7 +157,7 @@ namespace LD48
                         isWalking = true;
                     }
                 }
-                if (keysDown.Contains(Keys.S) || keysDown.Contains(Keys.Down))
+                if (SharedContext.InputManager.MoveDownPressed)
                 {
                     if (WorldPosition.Y + _moveSpeed < 1650 - 45)
                     {
@@ -172,27 +170,26 @@ namespace LD48
                 }
 
                 // Attacking
-                if (keysDown.Contains(Keys.Space))
+                if (SharedContext.InputManager.AttackPressed)
                 {
-                    // Attack
                     isSwording = true;
                 }
             }
 
 
             // Zooming ( should we disable )?
-            if (keysDown.Contains(Keys.O))
+            if (SharedContext.InputManager.ZoomOutPressed)
             {
                 if(_camera.Zoom >.5F)
                     _camera.Zoom -= .05F;
             }
-            if (keysDown.Contains(Keys.P))
+            if (SharedContext.InputManager.ZoomInPressed)
             {
                 if(_camera.Zoom < 3)
                     _camera.Zoom += .05F;
             }
 
-            if (keysDown.Contains(Keys.F))
+            if (SharedContext.InputManager.SwitchWeaponPressed)
             {
                 if (_weaponSwitchButtonDown == false)
                 {

@@ -15,8 +15,6 @@ namespace LD48
         Texture2D _cementTile;
         public List<Entity> ImmovableEntities { get; set; }
 
-        public House House { get; set; }
-
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
@@ -57,12 +55,6 @@ namespace LD48
                 ImmovableEntities.Add(tree);
             }
 
-            House = new House()
-            {
-                WorldPosition = new Vector2(800, 300)
-            };
-            House.LoadContent();
-            ImmovableEntities.Add(House);
         }
 
         /// <summary>
@@ -108,8 +100,6 @@ namespace LD48
                     }
                 }
             }
-
-
 
             // Draw some trees and a house
             foreach (Entity ent in ImmovableEntities)
