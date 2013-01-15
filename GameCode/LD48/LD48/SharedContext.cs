@@ -22,7 +22,7 @@ namespace LD48
 
         public static SoundEffectManager SoundEffectManager { get; set; }
 
-        public static BackgroundManager BackgroundManager { get; set; }
+        public static ZoneInstanceBackgroundManager BackgroundManager { get; set; }
 
         public static InputManager InputManager { get; set; }
 

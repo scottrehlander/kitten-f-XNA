@@ -9,11 +9,12 @@ using Microsoft.Xna.Framework.Content;
 
 namespace LD48
 {
-    public class BackgroundManager
+    public class ZoneInstanceBackgroundManager
     {
 
         Texture2D _cementTile;
         public List<Entity> ImmovableEntities { get; set; }
+        public Dictionary<string, Texture2D> _backgroundAssets;
 
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
@@ -31,30 +32,10 @@ namespace LD48
         /// all of your content.
         /// </summary>
         public void LoadContent()
-        {
-            // TODO: use this.Content to load your game content here
-            _cementTile = SharedContext.Content.Load<Texture2D>("Images/bg/bgTileGrass");
-
-            // Add some trees?
+        
             ImmovableEntities = new List<Entity>();
 
-            Random r = new Random();
-            Random r2 = new Random(53);
-
-            for (int i = 0; i < 55; i++)
-            {
-                Tree tree = new Tree() { WorldPosition = new Vector2(r.Next(-1200, 1200), r2.Next(-1200, 1200)) };
-                tree.LoadContent();
-                ImmovableEntities.Add(tree);
-            }
-
-            for (int i = 0; i < 4; i++)
-            {
-                Rock tree = new Rock() { WorldPosition = new Vector2(r.Next(-600, 600), r2.Next(-600, 600)) };
-                tree.LoadContent();
-                ImmovableEntities.Add(tree);
-            }
-
+            ImmovableEntities.AddRange(ZoneInstanceUtils.LoadZone("1_1"));
         }
 
         /// <summary>
@@ -96,7 +77,7 @@ namespace LD48
                     }
                     else
                     {
-                        spriteBatch.Draw(_cementTile, new Rectangle(i * 150, j * 150, 150, 150), null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0);
+                        spriteBatch.Draw(_grassTile, new Rectangle(i * 150, j * 150, 150, 150), null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0);
                     }
                 }
             }

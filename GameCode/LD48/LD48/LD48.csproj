@@ -107,6 +107,7 @@
     <Compile Include="Entities\MovableEntities\InnocentCat.cs" />
     <Compile Include="Entities\MovableEntities\MovableEntity.cs" />
     <Compile Include="Entities\MovableEntities\Cat.cs" />
+    <Compile Include="Entities\NonmovableEntities\CementBlock.cs" />
     <Compile Include="Entities\NonmovableEntities\FloatingStatus.cs" />
     <Compile Include="Entities\NonmovableEntities\House.cs" />
     <Compile Include="Entities\NonmovableEntities\Rock.cs" />
@@ -126,6 +127,7 @@
     <Compile Include="SharedContext.cs" />
     <Compile Include="SoundEffectManager.cs" />
     <Compile Include="StaticScreenManager.cs" />
+    <Compile Include="ZoneInstanceUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

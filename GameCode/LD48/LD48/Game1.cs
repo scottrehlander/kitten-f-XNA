@@ -25,7 +25,7 @@ namespace LD48
         Vector2 _parralaxCamSpeed = new Vector2(1F);
 
         // Managers
-        BackgroundManager _backgroundManager = new BackgroundManager();
+        ZoneInstanceBackgroundManager _backgroundManager = new ZoneInstanceBackgroundManager();
         MovableEntityManager _movableEntityManager = new MovableEntityManager();
         CollisionManager _collisionManager = new CollisionManager();
         EvolutionManager _evolutionManager = new EvolutionManager();
@@ -33,6 +33,8 @@ namespace LD48
         SoundEffectManager _soundEffectManager = new SoundEffectManager();
         StaticScreenManager _staticScreenManager = new StaticScreenManager();
         HudManager _hudManager = new HudManager();
+
+        // Make the input a keyboard input for now
         InputManager _inputManager = new KeyboardInputManager();
 
         // A list for sorting so we can draw correctly
@@ -83,7 +85,7 @@ namespace LD48
             SharedContext.SoundEffectManager = _soundEffectManager;
             SharedContext.HudManager = _hudManager;
             SharedContext.InputManager = _inputManager;
-            SharedContext.BackgroundManager = new BackgroundManager();
+            SharedContext.BackgroundManager = new ZoneInstanceBackgroundManager();
 
             _staticScreenManager.LoadContent();
 
