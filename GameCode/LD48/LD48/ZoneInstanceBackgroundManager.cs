@@ -12,9 +12,11 @@ namespace LD48
     public class ZoneInstanceBackgroundManager
     {
 
-        Texture2D _cementTile;
         public List<Entity> ImmovableEntities { get; set; }
         public Dictionary<string, Texture2D> _backgroundAssets;
+
+        private List<string> _enterableAreaMessages = new List<string>();
+        public List<string> EnterableAreaMessage { get { return _enterableAreaMessages; } }
 
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
@@ -32,7 +34,7 @@ namespace LD48
         /// all of your content.
         /// </summary>
         public void LoadContent()
-        
+        {
             ImmovableEntities = new List<Entity>();
 
             ImmovableEntities.AddRange(ZoneInstanceUtils.LoadZone("1_1"));
@@ -54,7 +56,16 @@ namespace LD48
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public void Update(GameTime gameTime)
         {
-            // TODO: Add your update logic here
+            _enterableAreaMessages.Clear();
+
+            foreach (IsEnterable enterableArea in ImmovableEntities.Where(p => p is IsEnterable))
+            {
+                Rectangle intersectingRect = Rectangle.Intersect(new Rectangle((int)SharedContext.MovableEntityManager.Hero.WorldPosition.X, 
+                   (int)SharedContext.MovableEntityManager.Hero.WorldPosition.Y, 50, 50),
+                    enterableArea.EnterableArea);
+                if (intersectingRect.Height > 0 || intersectingRect.Width > 0)
+                    _enterableAreaMessages.Add(enterableArea.EnterMessage);
+            }
         }
 
         /// <summary>
@@ -63,25 +74,6 @@ namespace LD48
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            // TODO: Add your drawing code here
-            
-            // Draw a shitload of cement tiles for now
-            for (int i = -15; i < 15; i++)
-            {
-                for (int j = -15; j < 15; j++)
-                {
-                    if (i < -10 || i > 10 ||
-                        j < -10 || j > 10)
-                    {
-                        spriteBatch.Draw(SharedContext.Content.Load<Texture2D>("Images/bg/bgTileRock"), new Rectangle(i * 150, j * 150, 150, 150), null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0);
-                    }
-                    else
-                    {
-                        spriteBatch.Draw(_grassTile, new Rectangle(i * 150, j * 150, 150, 150), null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0);
-                    }
-                }
-            }
-
             // Draw some trees and a house
             foreach (Entity ent in ImmovableEntities)
                 ent.Draw(gameTime, spriteBatch);

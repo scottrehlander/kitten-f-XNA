@@ -25,7 +25,7 @@ namespace LD48
         Vector2 _parralaxCamSpeed = new Vector2(1F);
 
         // Managers
-        ZoneInstanceBackgroundManager _backgroundManager = new ZoneInstanceBackgroundManager();
+        ZoneInstanceBackgroundManager _backgroundManager;
         MovableEntityManager _movableEntityManager = new MovableEntityManager();
         CollisionManager _collisionManager = new CollisionManager();
         EvolutionManager _evolutionManager = new EvolutionManager();
@@ -86,6 +86,7 @@ namespace LD48
             SharedContext.HudManager = _hudManager;
             SharedContext.InputManager = _inputManager;
             SharedContext.BackgroundManager = new ZoneInstanceBackgroundManager();
+            _backgroundManager = SharedContext.BackgroundManager;
 
             _staticScreenManager.LoadContent();
 

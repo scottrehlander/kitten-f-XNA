@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace LD48
 {
@@ -37,24 +38,33 @@ namespace LD48
                 zone.Add(rock);
             }
 
-            //// Background Tiles
-            //for (int i = -15; i < 15; i++)
-            //{
-            //    for (int j = -15; j < 15; j++)
-            //    {
-            //        if (i < -10 || i > 10 ||
-            //            j < -10 || j > 10)
-            //        {
-            //            zone.Add(new CementBlock() { WorldPosition = new Vector2(i * 150, j * 150));
-            //        }
-            //        else
-            //        {
-            //            zone.Add(new CementBlock() { WorldPosition = new Vector2(i * 150, j * 150));
+            // Background Tiles
+            for (int i = -15; i < 15; i++)
+            {
+                for (int j = -15; j < 15; j++)
+                {
+                    if (i < -10 || i > 10 ||
+                        j < -10 || j > 10)
+                    {
+                        CementBlock block = new CementBlock() { WorldPosition = new Vector2(i * 150, j * 150) };
+                        block.LoadContent();
+                        zone.Add(block);
+                    }
+                    else
+                    {
+                        GroundTile tile = new GroundTile(GroundTile.GroundTileType.Grass) { WorldPosition = new Vector2(i * 150, j * 150) };
+                        tile.LoadContent();
+                        zone.Add(tile);
+                    }
+                }
+            }
 
-            //            spriteBatch.Draw(_cementTile, new Rectangle(i * 150, j * 150, 150, 150), null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0);
-            //        }
-            //    }
-            //}
+            House house = new House()
+            {
+                WorldPosition = new Vector2(0, 0)
+            };
+            house.LoadContent();
+            zone.Add(house);
 
             return zone;
         }

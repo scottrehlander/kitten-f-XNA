@@ -7,11 +7,19 @@ using Microsoft.Xna.Framework;
 
 namespace LD48
 {
-    public class House : Entity
+    public class House : Entity, IsEnterable
     {
+
+        private Rectangle _enterableArea;
+        public Rectangle EnterableArea { get { return _enterableArea; } }
+        public string EnterMessage { get { return "Press Z to Enter"; } }
+
+
         public override void LoadContent()
         {
             Texture = SharedContext.Content.Load<Texture2D>("Images/house");
+
+            _enterableArea = new Rectangle((int)WorldPosition.X, (int)WorldPosition.Y, 300, 100);
         }
 
         public override void UnloadContent()
@@ -30,5 +38,6 @@ namespace LD48
             spriteBatch.Draw(Texture, new Rectangle((int)WorldPosition.X, (int)WorldPosition.Y, 260, 140), null, Color.White, 0, 
                 Vector2.Zero, SpriteEffects.None, layerDepth);
         }
+
     }
 }

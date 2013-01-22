@@ -152,6 +152,14 @@ namespace LD48
 
             spriteBatch.DrawString(SharedContext.Content.Load<SpriteFont>("statusFont"), "Press Escape to Pause", new Vector2(
                 120, SharedContext.GraphicsDevice.Viewport.Height - 25), Color.White);
+
+            // Draw enterable message
+            foreach (string enterMessage in SharedContext.BackgroundManager.EnterableAreaMessage)
+            {
+                spriteBatch.DrawString(SharedContext.Content.Load<SpriteFont>("statusFont"), enterMessage, new Vector2(
+                    120, 25), Color.White);
+            }
+
         }
 
     }
