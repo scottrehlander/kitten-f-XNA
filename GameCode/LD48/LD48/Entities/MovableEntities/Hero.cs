@@ -380,6 +380,18 @@ namespace LD48
             Health = _startingHealth;
         }
 
+        public void SwitchToWeaponForQuest(LD48.MovableEntityManager.QuestEnum quest)
+        {
+            if (quest == MovableEntityManager.QuestEnum.Quest2)
+            {
+                HeroWeapon = HeroWeaponEnum.ShotGun;
+            }
+            if (quest == MovableEntityManager.QuestEnum.Quest3)
+            {
+                HeroWeapon = HeroWeaponEnum.UpgradedShotGun;
+            }
+        }
+
         #endregion
 
 

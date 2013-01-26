@@ -26,6 +26,8 @@ namespace LD48
 
         public static InputManager InputManager { get; set; }
 
+        public static StaticScreenManager StaticScreenManager { get; set; }
+
         public static HudManager HudManager { get; set; }
 
         private static bool restartGameTrigger = false;

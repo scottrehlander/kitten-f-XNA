@@ -85,9 +85,9 @@ namespace LD48
             SharedContext.SoundEffectManager = _soundEffectManager;
             SharedContext.HudManager = _hudManager;
             SharedContext.InputManager = _inputManager;
+            SharedContext.StaticScreenManager = _staticScreenManager;
             SharedContext.BackgroundManager = new ZoneInstanceBackgroundManager();
             _backgroundManager = SharedContext.BackgroundManager;
-
             _staticScreenManager.LoadContent();
 
             _camera = new Camera(GraphicsDevice.Viewport);
@@ -154,13 +154,7 @@ namespace LD48
 
             // Remove items that shouldn't be on the screen anymore
             _movableEntityManager.RemoveRequestedRemovals();
-
-            // Pause the game if the user wants to pause
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
-            {
-                _staticScreenManager.CurrentScreen = StaticScreenManager.CurrentScreenEnum.Paused;
-            }
-                        
+            
             base.Update(gameTime);
         }
 

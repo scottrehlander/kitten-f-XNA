@@ -26,9 +26,9 @@ namespace LD48
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            float layerDepth = ((WorldPosition.Y + 50) + 99999) * 100 / 100000000;
+            float layerDepth = ((WorldPosition.Y + 250) + 99999) * 100 / 100000000;
 
-            spriteBatch.Draw(Texture, new Rectangle((int)WorldPosition.X, (int)WorldPosition.Y, 45, 50), null, Color.White, 0, Vector2.Zero,
+            spriteBatch.Draw(Texture, new Rectangle((int)WorldPosition.X, (int)WorldPosition.Y, 155, 255), null, Color.White, 0, Vector2.Zero,
                 SpriteEffects.None, layerDepth);
         }
     }

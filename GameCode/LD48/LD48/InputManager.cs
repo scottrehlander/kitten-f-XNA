@@ -16,6 +16,7 @@ namespace LD48
         public bool ZoomOutPressed { get; protected set; }
         public bool ZoomInPressed { get; protected set; }
         public bool SwitchWeaponPressed { get; protected set; }
+        public bool EnterActionPressed { get; protected set; }
 
         public virtual void Update()
         {
@@ -33,6 +34,7 @@ namespace LD48
             ZoomOutPressed = false;
             ZoomInPressed = false;
             SwitchWeaponPressed = false;
+            EnterActionPressed = false;
         }
 
     }

@@ -49,8 +49,16 @@ namespace LD48
                 }
             }
 
-            if(_currentScreen == CurrentScreenEnum.None)
+            if (_currentScreen == CurrentScreenEnum.None)
+            {
+                // Pause the game if the user wants to pause
+                if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+                {
+                    SharedContext.StaticScreenManager.CurrentScreen = StaticScreenManager.CurrentScreenEnum.Paused;
+                }
+
                 return false;
+            }
 
             if (_currentScreen == CurrentScreenEnum.Start)
             {
@@ -67,7 +75,6 @@ namespace LD48
                     _currentScreen = CurrentScreenEnum.None;
                 }
             }
-
 
             if (_currentScreen == CurrentScreenEnum.Story)
             {
@@ -137,7 +144,7 @@ namespace LD48
             if (_currentScreen == CurrentScreenEnum.Story)
             {
                 spriteBatch.Begin();
-                
+
                 if (SharedContext.MovableEntityManager.CurrentQuest == MovableEntityManager.QuestEnum.Quest1)
                 {
                     spriteBatch.Draw(SharedContext.Content.Load<Texture2D>("QuestText/quest1"), new Rectangle(SharedContext.GraphicsDevice.Viewport.Width / 2 - 375,
@@ -151,6 +158,11 @@ namespace LD48
                 if (SharedContext.MovableEntityManager.CurrentQuest == MovableEntityManager.QuestEnum.Quest3)
                 {
                     spriteBatch.Draw(SharedContext.Content.Load<Texture2D>("QuestText/quest3"), new Rectangle(SharedContext.GraphicsDevice.Viewport.Width / 2 - 375,
+                    SharedContext.GraphicsDevice.Viewport.Height / 2 - 250, 750, 500), Color.White);
+                }
+                if (SharedContext.MovableEntityManager.CurrentQuest > MovableEntityManager.QuestEnum.Quest3)
+                {
+                    spriteBatch.Draw(SharedContext.Content.Load<Texture2D>("QuestText/youWin"), new Rectangle(SharedContext.GraphicsDevice.Viewport.Width / 2 - 375,
                     SharedContext.GraphicsDevice.Viewport.Height / 2 - 250, 750, 500), Color.White);
                 }
 

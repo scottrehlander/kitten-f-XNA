@@ -55,6 +55,11 @@ namespace LD48.InputTypes
             {
                 SwitchWeaponPressed = true;
             }
+
+            if (keysDown.Contains(Keys.Z))
+            {
+                EnterActionPressed = true;
+            }
         }
 
     }

@@ -7,13 +7,33 @@ using Microsoft.Xna.Framework;
 
 namespace LD48
 {
-    public class House : Entity, IsEnterable
+    public class House : Entity, IsActionable
     {
 
         private Rectangle _enterableArea;
         public Rectangle EnterableArea { get { return _enterableArea; } }
         public string EnterMessage { get { return "Press Z to Enter"; } }
+        public Action ActionToExecute
+        {
+            get 
+            {
+                return new Action(() => {
+                        if (SharedContext.MovableEntityManager.CurrentQuest == MovableEntityManager.QuestEnum.PreQuest)
+                        {
+                            SharedContext.MovableEntityManager.CurrentQuest = MovableEntityManager.QuestEnum.Quest1;
+                        }
+                        else if (SharedContext.QuestProgressManager.QuestCompleted)
+                        {
+                            SharedContext.MovableEntityManager.CurrentQuest++;
 
+                            SharedContext.MovableEntityManager.Hero.SwitchToWeaponForQuest(SharedContext.MovableEntityManager.CurrentQuest);
+                        }
+
+                        SharedContext.StaticScreenManager.CurrentScreen = StaticScreenManager.CurrentScreenEnum.Story;
+                    });
+            }
+        }
+        
 
         public override void LoadContent()
         {
@@ -33,9 +53,9 @@ namespace LD48
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            float layerDepth = ((WorldPosition.Y + 140) + 99999) * 100 / 100000000;
+            float layerDepth = ((WorldPosition.Y + 360) + 99999) * 100 / 100000000;
 
-            spriteBatch.Draw(Texture, new Rectangle((int)WorldPosition.X, (int)WorldPosition.Y, 260, 140), null, Color.White, 0, 
+            spriteBatch.Draw(Texture, new Rectangle((int)WorldPosition.X, (int)WorldPosition.Y, 500, 400), null, Color.White, 0, 
                 Vector2.Zero, SpriteEffects.None, layerDepth);
         }
 

@@ -58,14 +58,23 @@ namespace LD48
         {
             _enterableAreaMessages.Clear();
 
-            foreach (IsEnterable enterableArea in ImmovableEntities.Where(p => p is IsEnterable))
+            foreach (IsActionable actionableItem in ImmovableEntities.Where(p => p is IsActionable))
             {
                 Rectangle intersectingRect = Rectangle.Intersect(new Rectangle((int)SharedContext.MovableEntityManager.Hero.WorldPosition.X, 
                    (int)SharedContext.MovableEntityManager.Hero.WorldPosition.Y, 50, 50),
-                    enterableArea.EnterableArea);
+                    actionableItem.EnterableArea);
                 if (intersectingRect.Height > 0 || intersectingRect.Width > 0)
-                    _enterableAreaMessages.Add(enterableArea.EnterMessage);
+                {
+                    _enterableAreaMessages.Add(actionableItem.EnterMessage);
+                    
+                    // Check input
+                    if (SharedContext.InputManager.EnterActionPressed)
+                    {
+                        actionableItem.ActionToExecute();
+                    }
+                }
             }
+
         }
 
         /// <summary>

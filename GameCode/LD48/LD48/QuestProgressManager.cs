@@ -29,7 +29,7 @@ namespace LD48
                 }
             }
         }
-        public int NumberOfInnocentKittensToFinishQuest { get { return 25; } }
+        public int NumberOfInnocentKittensToFinishQuest { get { return 1; } }// return 25; } }
 
         private int _numberOfMutatedKittensKilled = 0;
         public int NumberOfMutatedKittensKilled
@@ -50,7 +50,7 @@ namespace LD48
                 }
             }
         }
-        public int NumberOfMutatedKittensToFinishQuest { get { return 25; } }
+        public int NumberOfMutatedKittensToFinishQuest { get { return 1; } }// return 25; } }
 
     }
 }

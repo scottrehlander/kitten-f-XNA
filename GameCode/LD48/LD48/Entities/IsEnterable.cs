@@ -6,9 +6,10 @@ using System.Text;
 
 namespace LD48
 {
-    public interface IsEnterable
+    public interface IsActionable
     {
         Rectangle EnterableArea { get; }
         string EnterMessage { get; }
+        Action ActionToExecute { get; }
     }
 }
