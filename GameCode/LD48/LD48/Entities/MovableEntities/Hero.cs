@@ -68,6 +68,9 @@ namespace LD48
         TimeSpan _invulnerableCatTimeout = TimeSpan.FromSeconds(1);
         TimeSpan _sinceHit = TimeSpan.FromSeconds(20);
         TimeSpan _timeStunnedAfterHit = TimeSpan.FromSeconds(.3);
+
+        // Sprite helper
+        SpriteAnimationHelper _spriteHelper = new SpriteAnimationHelper();
         
         #endregion
 
@@ -88,8 +91,16 @@ namespace LD48
 
         public override void LoadContent()
         {
+            _spriteHelper.Images = new Dictionary<string, List<Texture2D>>();
+            _spriteHelper.TimeToSwitchImage = new Dictionary<string, TimeSpan>();
+
             // Load the Hero Textures
             Texture = SharedContext.Content.Load<Texture2D>("Images/hero1_color");
+            _spriteHelper.Images.Add(HeroState.Idle.ToString(), new List<Texture2D> { Texture });
+            // Add time to siwthc images
+
+            _spriteHelper.Images.Add(HeroState.Walking.ToString(), new List<Texture2D> { Texture });  
+
 
             _swordAnimationTextures.Add(SharedContext.Content.Load<Texture2D>("Images/hero1_color"));
             _swordAnimationTextures.Add(SharedContext.Content.Load<Texture2D>("Images/heroSword1_color"));
@@ -296,11 +307,11 @@ namespace LD48
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            Texture2D _heroTexture;
-            if (HeroWeapon == HeroWeaponEnum.Sword)
-                _heroTexture = Texture;
-            else
-                _heroTexture = _shotGunTexture;
+            Texture2D _heroTexture = _spriteHelper.GetNextImage(HeroState.Walking.ToString(), gameTime); 
+            //if (HeroWeapon == HeroWeaponEnum.Sword)
+            //    _heroTexture = Texture;
+            //else
+            //    _heroTexture = _shotGunTexture;
 
             // If we are swording, increment our animation
             if (_heroState == HeroState.Swording || _swordingInProgress)
