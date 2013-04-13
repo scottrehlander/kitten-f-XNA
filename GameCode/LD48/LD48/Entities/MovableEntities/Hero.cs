@@ -50,9 +50,6 @@ namespace LD48
         int _swordAnimationIndex = 0;
         bool _swordingInProgress = false;
 
-        Texture2D _shotGunTexture;
-        List<Texture2D> _shotgunTextures = new List<Texture2D>();
-
         // Don't switch weapons too fast
         bool _weaponSwitchButtonDown = false;
 
@@ -95,21 +92,22 @@ namespace LD48
             _spriteHelper.TimeToSwitchImage = new Dictionary<string, TimeSpan>();
 
             // Load the Hero Textures
+            // Walking
             Texture = SharedContext.Content.Load<Texture2D>("Images/hero1_color");
             _spriteHelper.Images.Add(HeroState.Idle.ToString(), new List<Texture2D> { Texture });
-            // Add time to siwthc images
+            _spriteHelper.TimeToSwitchImage.Add(HeroState.Idle.ToString(), TimeSpan.FromMilliseconds(1000));
 
-            _spriteHelper.Images.Add(HeroState.Walking.ToString(), new List<Texture2D> { Texture });  
+            // Idle
+            _spriteHelper.TimeToSwitchImage.Add(HeroState.Walking.ToString(), TimeSpan.FromMilliseconds(90));
+            _spriteHelper.Images.Add(HeroState.Walking.ToString(), new List<Texture2D> { Texture, SharedContext.Content.Load<Texture2D>("Images/hero1_color_2") });
 
-
-            _swordAnimationTextures.Add(SharedContext.Content.Load<Texture2D>("Images/hero1_color"));
-            _swordAnimationTextures.Add(SharedContext.Content.Load<Texture2D>("Images/heroSword1_color"));
-            _swordAnimationTextures.Add(SharedContext.Content.Load<Texture2D>("Images/heroSword2_color"));
-
-            _shotGunTexture = SharedContext.Content.Load<Texture2D>("Images/HeroFt");
-            _shotgunTextures.Add(SharedContext.Content.Load<Texture2D>("Images/HeroFt"));
-            _shotgunTextures.Add(SharedContext.Content.Load<Texture2D>("Images/HeroFtShooting"));
-
+            _spriteHelper.TimeToSwitchImage.Add(HeroState.Swording.ToString(), TimeSpan.FromMilliseconds(60));
+            _spriteHelper.Images.Add(HeroState.Swording.ToString(), new List<Texture2D> { 
+                SharedContext.Content.Load<Texture2D>("Images/hero1_color"),
+                SharedContext.Content.Load<Texture2D>("Images/heroSword1_color"),
+                SharedContext.Content.Load<Texture2D>("Images/heroSword2_color")
+            });
+            
             CollisionBox = new Rectangle(10, 7, 25, 37);
 
             base.LoadContent();
@@ -307,67 +305,18 @@ namespace LD48
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            Texture2D _heroTexture = _spriteHelper.GetNextImage(HeroState.Walking.ToString(), gameTime); 
             //if (HeroWeapon == HeroWeaponEnum.Sword)
             //    _heroTexture = Texture;
             //else
             //    _heroTexture = _shotGunTexture;
 
-            // If we are swording, increment our animation
-            if (_heroState == HeroState.Swording || _swordingInProgress)
-            {
-                List<Texture2D> textureList;
-                if (HeroWeapon == HeroWeaponEnum.Sword)
-                {
-                    textureList = _swordAnimationTextures;
-
-                    if (_swordAnimationIndex == 1)
-                        SharedContext.SoundEffectManager.PlaySwordAttack();
-                }
-                else
-                {
-                    textureList = _shotgunTextures;
-
-                    if (_swordAnimationIndex == 1)
-                        SharedContext.SoundEffectManager.PlayGunShot();
-                }
-
-                _swordingInProgress = true;
-
-                // Limit the amount of time for the animation
-                if (_swordAnimationTimer > TimeSpan.FromSeconds(.1F))
-                {
-                    _swordAnimationIndex++;
-
-                    // If we surpassed the index limit, reset to 0
-                    if (_swordAnimationIndex >= textureList.Count)
-                    {
-                        _swordingInProgress = false;
-                        _swordAnimationIndex = 0;
-                    }
-
-                    _swordAnimationTimer = TimeSpan.Zero;
-                }
-
-                // Set the texture to the animation texture
-                try
-                {
-                    _heroTexture = textureList[_swordAnimationIndex];
-                }
-                catch { }
-
-                _swordAnimationTimer += gameTime.ElapsedGameTime;
-            }
-            else
-            {
-                _swordAnimationIndex = 0;
-                _swordAnimationTimer = TimeSpan.Zero;
-            }
-
             // Calculate the layerdepth
             // x/100 = .Y / 100000
             float layerDepth = ((WorldPosition.Y + 50) + 99999) * 100 / 100000000;
 
+            // Grab the texture from our spriteHelper
+            Texture2D _heroTexture = _spriteHelper.GetNextImage(_heroState.ToString(), gameTime); 
+            
             // Draw the texture
             spriteBatch.Draw(_heroTexture, new Rectangle((int)WorldPosition.X, (int)WorldPosition.Y, 45, 50), null, Color.White, 0, Vector2.Zero, 
                 !_isFacingRight ? SpriteEffects.FlipHorizontally : SpriteEffects.None, layerDepth);

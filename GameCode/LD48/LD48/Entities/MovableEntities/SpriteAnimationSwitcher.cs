@@ -26,12 +26,12 @@ namespace LD48
                 _currentImage = 0;
                 _timeSinceLastSwitch = TimeSpan.FromSeconds(0);
             }
-            
+
             if (_timeSinceLastSwitch > TimeToSwitchImage[fromCollection])
             {
 
                 // If we are going to increment past the number of images, set to -1
-                if (_currentImage + 1 > Images[fromCollection].Count())
+                if (_currentImage + 1 >= Images[fromCollection].Count())
                 {
                     _currentImage = -1;
                 }

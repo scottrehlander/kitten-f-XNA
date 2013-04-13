@@ -114,13 +114,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Images\hero1_color.png">
-      <Name>hero1_color</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Images\heroSword1_color.png">
       <Name>heroSword1_color</Name>
       <Importer>TextureImporter</Importer>
@@ -312,6 +305,20 @@
   <ItemGroup>
     <Compile Include="Images\paused.png">
       <Name>paused</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Images\hero1_color_2.png">
+      <Name>hero1_color_2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Images\hero1_color.png">
+      <Name>hero1_color</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
